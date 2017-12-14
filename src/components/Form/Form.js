@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import './Form.css';
+
 class Form extends Component {
     handleSubmit(ev) {
         ev.preventDefault();
@@ -21,14 +23,15 @@ class Form extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit.bind(this)}>
-                <input ref="title" placeholder="Title" />
-                <textarea ref="description" placeholder="Description" />
-                <select ref="importance">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                </select>
-                <button>Add</button>
+                <fieldset>
+                    <legend>Form</legend>
+                    <input ref="title" placeholder="Title" />
+                    <select ref="importance">
+                        {this.props.importanceNames.map((name, index) => <option value={index}>{name}</option>)}
+                    </select>
+                    <textarea ref="description" placeholder="Description" />
+                    <button>Add</button>
+                </fieldset>
             </form>
         );
     }

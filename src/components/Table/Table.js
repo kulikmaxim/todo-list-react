@@ -16,6 +16,7 @@ class Table extends Component {
                     <TableItem
                         key={item.id}
                         {...item}
+                        importanceNames={this.props.importanceNames}
                     />)
                 )}
             </table>

@@ -3,6 +3,8 @@ import Table from '../Table';
 import Form from '../Form';
 import { getItems } from '../../utils/apiWrapper';
 
+const importanceNames = ['High', 'Medium', 'Low'];
+
 class App extends Component {
     state = {
         items: []
@@ -25,8 +27,8 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Form onAdd={this.addTask.bind(this)} />
-                <Table items={this.state.items} />
+                <Form onAdd={this.addTask.bind(this)} importanceNames={importanceNames} />
+                <Table items={this.state.items } importanceNames={importanceNames} />
             </div>
         );
     }
