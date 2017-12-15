@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {getDateByString} from '../../utils/getDateByString';
 
 import './Form.css';
 
@@ -11,10 +12,10 @@ class Form extends Component {
             title: this.refs.title.value,
             description: this.refs.description.value,
             importance: this.refs.importance.value,
-            date: new Date(),
+            date: getDateByString(this.refs.date.value),
         }
 
-        if (this.refs.title.value) {
+        if (item.title && item.date) {
             this.props.onAdd(item);
             ev.target.reset();
         }
@@ -30,6 +31,7 @@ class Form extends Component {
                             {this.props.importanceNames.map((name, index) => <option value={index}>{name}</option>)}
                         </select>
                         <textarea ref="description" placeholder="Description" />
+                        <input ref="date" placeholder="date='dd.mm.yyyy'" />
                         <button>Add</button>
                 </fieldset>
             </form>
