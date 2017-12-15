@@ -7,7 +7,7 @@ import {filterBy} from '../../utils/filterBy';
 
 import './Table.css';
 
-const columns = ['id', 'done', 'title', 'importance', 'date'];
+const columns = ['done', 'title', 'importance', 'date'];
 
 class Table extends Component {
     state = {

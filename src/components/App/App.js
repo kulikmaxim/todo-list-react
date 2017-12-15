@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import Table from '../Table';
 import Form from '../Form';
 import Filter from '../Filter';
-import { getItems } from '../../utils/apiWrapper';
+import storage from '../../utils/localStorage';
 
-const importanceNames = ['High', 'Medium', 'Low'];
+const IMPORTANCE_NAMES = ['High', 'Medium', 'Low'];
+const STORAGE_NAME = 'data'; 
 
 class App extends Component {
     state = {
@@ -14,7 +15,8 @@ class App extends Component {
 
     constructor() {
         super();
-        getItems().then((items) => this.setState({ items }));
+        storage.getData(STORAGE_NAME)
+            .then((state) => state && this.setState(state));
     }
 
     addTask(item) {
@@ -23,7 +25,7 @@ class App extends Component {
                 item,
                 ...this.state.items
             ]
-        });
+        }, () => storage.setData(STORAGE_NAME, this.state));
     }
 
     toggleChecked = (id) => {
@@ -32,7 +34,7 @@ class App extends Component {
                 ...item,
                 done: !item.done
             }),
-        })
+        }, () => storage.setData(STORAGE_NAME, this.state))
     }
 
     handleFilter = (filter) => {
@@ -42,14 +44,14 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Form onAdd={this.addTask.bind(this)} importanceNames={importanceNames}  />
+                <Form onAdd={this.addTask.bind(this)} importanceNames={IMPORTANCE_NAMES}  />
                 <br />
                 <Filter onFilter={this.handleFilter.bind(this)} />
                 <br />
                 <Table 
                     items={this.state.items} 
                     toggleChecked={this.toggleChecked} 
-                    importanceNames={importanceNames} 
+                    importanceNames={IMPORTANCE_NAMES} 
                     filter={this.state.filter}
                 />
             </div>
