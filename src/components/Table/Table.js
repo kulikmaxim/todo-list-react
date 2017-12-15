@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import TableItem from './TableItem';
 import TableHeader from './TableHeader';
 import sortBy from '../../utils/sortBy';
+import {filterBy} from '../../utils/filterBy';
 
 import './Table.css';
 
@@ -18,18 +19,21 @@ class Table extends Component {
     }
 
     render() {
+        let filteredItems = filterBy(this.props.items, this.props.filter);
+
         let sortedItems = sortBy(
-            this.props.items,
+            filteredItems,
             this.state.sortBy
         );
 
         return (
             <table>
                 <TableHeader columns={columns} onSort={this.handleSort.bind(this)} />
-                {this.props.items.map((item) => (
+                {sortedItems.map((item) => (
                     <TableItem
                         key={item.id}
                         {...item}
+                        toggleChecked={this.props.toggleChecked}
                         importanceNames={this.props.importanceNames}
                     />)
                 )}

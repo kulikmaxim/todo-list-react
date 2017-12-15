@@ -24,13 +24,13 @@ class Form extends Component {
         return (
             <form onSubmit={this.handleSubmit.bind(this)}>
                 <fieldset>
-                    <legend>Form</legend>
-                    <input ref="title" placeholder="Title" />
-                    <select ref="importance">
-                        {this.props.importanceNames.map((name, index) => <option value={index}>{name}</option>)}
-                    </select>
-                    <textarea ref="description" placeholder="Description" />
-                    <button>Add</button>
+                        <legend>Form</legend>
+                        <input ref="title" placeholder="Title" />
+                        <select ref="importance">
+                            {this.props.importanceNames.map((name, index) => <option value={index}>{name}</option>)}
+                        </select>
+                        <textarea ref="description" placeholder="Description" />
+                        <button>Add</button>
                 </fieldset>
             </form>
         );
