@@ -1,5 +1,5 @@
 export const getItems = () => Promise.resolve(
-    new Array(10)
+    new Array(20)
         .fill(1)
         .map((_, index) => ({
             id: index,

@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
-//import {getDateByString} from '../../utils/getDateByString';
+import {getDateByString} from '../../utils/getDateByString';
+import debounce from 'lodash/debounce';
 
 import './Filter.css';
 
 class Filter extends Component {
+    constructor() {
+        super();
+        
+        this.debouncedHandleFormChanges = debounce(this.handleFormChanges, 100);
+    }
 
-    handleSubmit(ev) {
+    handleFormChanges(ev) {
         ev.preventDefault();
         let filter = {
-            showComplited: this.refs.showComplited.value,
+            showComplited: this.refs.showComplited.checked,
             searchText: this.refs.searchText.value,
-            dateFrom: this.refs.dateFrom.value,
-            dateTo: this.refs.dateTo.value,
+            dateFrom: getDateByString(this.refs.dateFrom.value),
+            dateTo: getDateByString(this.refs.dateTo.value),
         }
 
         this.props.onFilter(filter);
@@ -19,14 +25,13 @@ class Filter extends Component {
 
     render() {
         return (
-        <form onSubmit={this.handleSubmit.bind(this)}>
+        <form onChange={this.debouncedHandleFormChanges.bind(this)}>
             <fieldset>
                     <legend>Filter</legend>
                     <input ref='showComplited' type='checkbox' /><label>Show complited</label>
                     <input ref='dateFrom' placeholder='dd.mm.yyyy' /><label>Date from</label>
                     <input ref='dateTo' placeholder='dd.mm.yyyy' /><label>Date to</label>
                     <input ref='searchText' placeholder='Text search (title + description)' />
-                    <button>filter</button>
             </fieldset>
         </form>
         );
